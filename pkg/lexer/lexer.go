@@ -66,10 +66,14 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 			switch character {
 			case SEMICOLON:
 				tokens = append(tokens, Token{ Type: Semicolon })
-			case LEFT_PARENTHESIS:
-				tokens = append(tokens, Token{ Type: LeftParenthesis })
-			case RIGHT_PARENTHESIS:
-				tokens = append(tokens, Token{ Type: RightParenthesis })
+			case OPEN_PARENTHESIS:
+				tokens = append(tokens, Token{ Type: OpenParenthesis })
+			case CLOSE_PARENTHESIS:
+				tokens = append(tokens, Token{ Type: CloseParenthesis })
+			case OPEN_CURLY:
+				tokens = append(tokens, Token{ Type: OpenCurly })
+			case CLOSE_CURLY:
+				tokens = append(tokens, Token{ Type: CloseCurly })
 			case EQUAL:
 				tokens = append(tokens, Token{ Type: Equal })
 			case PLUS:

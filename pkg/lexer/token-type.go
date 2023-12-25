@@ -3,18 +3,25 @@ package lexer
 type TokenType int
 
 const (
+	// Statements
 	Exit TokenType = iota
 	Let
 	Puts
 	If
 
+	// Identifiers
 	Ident
 	IntIdent
 	
-	Equal
-	LeftParenthesis
-	RightParenthesis
+	// Symbols
+	OpenParenthesis
+	CloseParenthesis
+	OpenCurly
+	CloseCurly
 	Semicolon
+	
+	//
+	Equal
 	Plus
 	Minus
 	Multiply
@@ -50,10 +57,14 @@ func (t TokenType) String() string {
 		return "Divide"
 	case Modulo:
 		return "Modulo"
-	case LeftParenthesis:
-		return "LeftParenthesis"
-	case RightParenthesis:
-		return "RightParenthesis"
+	case OpenParenthesis:
+		return "OpenParenthesis"
+	case CloseParenthesis:
+		return "CloseParenthesis"
+	case OpenCurly:
+		return "OpenCurly"
+	case CloseCurly:
+		return "CloseCurly"
 	case Semicolon:
 		return "Semicolon"
 	default:

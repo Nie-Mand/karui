@@ -2,8 +2,10 @@ package lexer
 
 var (
 	EQUAL = "="
-	LEFT_PARENTHESIS = "("
-	RIGHT_PARENTHESIS = ")"
+	OPEN_PARENTHESIS = "("
+	CLOSE_PARENTHESIS = ")"
+	OPEN_CURLY = "{"
+	CLOSE_CURLY = "}"
 	SEMICOLON = ";"
 	PLUS = "+"
 	MINUS = "-"
@@ -12,4 +14,6 @@ var (
 	MODULO = "%"
 
 	SEPERATOR = SEMICOLON
+	SCOPE_START = OPEN_CURLY
+	SCOPE_END = CLOSE_CURLY
 )
