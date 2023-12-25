@@ -1,6 +1,5 @@
 package lexer
 
-// - TokenType: enum (exit, number, parenthesis, +-*/^, number, if.. variable itself: ident or int ident)
 type TokenType int
 
 const (
@@ -15,6 +14,11 @@ const (
 	LeftParenthesis
 	RightParenthesis
 	Semicolon
+	Plus
+	Minus
+	Multiply
+	Divide
+	Modulo
 )
 
 func (t TokenType) String() string {
@@ -31,6 +35,16 @@ func (t TokenType) String() string {
 		return "IntIdent"
 	case Equal:
 		return "Equal"
+	case Plus:
+		return "Plus"
+	case Minus:
+		return "Minus"
+	case Multiply:
+		return "Multiply"
+	case Divide:
+		return "Divide"
+	case Modulo:
+		return "Modulo"
 	case LeftParenthesis:
 		return "LeftParenthesis"
 	case RightParenthesis:

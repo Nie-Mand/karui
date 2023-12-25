@@ -70,6 +70,16 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 				tokens = append(tokens, Token{ Type: RightParenthesis })
 			case EQUAL:
 				tokens = append(tokens, Token{ Type: Equal })
+			case PLUS:
+				tokens = append(tokens, Token{ Type: Plus })
+			case MINUS:
+				tokens = append(tokens, Token{ Type: Minus })
+			case MULTIPLY:
+				tokens = append(tokens, Token{ Type: Multiply })
+			case DIVIDE:
+				tokens = append(tokens, Token{ Type: Divide })
+			case MODULO:
+				tokens = append(tokens, Token{ Type: Modulo })
 			case " ":
 				// ignore
 			case "\t":
