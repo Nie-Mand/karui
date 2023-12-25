@@ -9,4 +9,7 @@ var (
 
 	// Print to the console
 	PUTS = "puts"
+
+	// If statement
+	IF = "if"
 )

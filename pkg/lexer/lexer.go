@@ -42,6 +42,8 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 				tokens = append(tokens, Token{ Type: Let })
 			case PUTS:
 				tokens = append(tokens, Token{ Type: Puts })
+			case IF:
+				tokens = append(tokens, Token{ Type: If })
 			default:
 				tokens = append(tokens, Token{ Type: Ident, Value: buffer })
 			}

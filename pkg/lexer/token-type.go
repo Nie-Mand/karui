@@ -6,6 +6,7 @@ const (
 	Exit TokenType = iota
 	Let
 	Puts
+	If
 
 	Ident
 	IntIdent
@@ -29,10 +30,14 @@ func (t TokenType) String() string {
 		return "Let"
 	case Puts:
 		return "Puts"
+	case If:
+		return "If"
+
 	case Ident:
 		return "Ident"
 	case IntIdent:
 		return "IntIdent"
+
 	case Equal:
 		return "Equal"
 	case Plus:
