@@ -18,7 +18,7 @@ type PutStatement struct {
 func (PutStatement) IsStatement() {}
 
 func (p * PutStatement) String() string {
-	representation := "print " + p.Expression.String()
+	representation := "puts " + p.Expression.String()
 	return representation
 }
 
@@ -45,8 +45,13 @@ type IfStatement struct {
 
 func (IfStatement) IsStatement() {}
 
-func (IfStatement) String() string {
-	return "IfStatement"
+func (s *IfStatement) String() string {
+	representation := "if: " + s.Condition.String() + " do: \n"
+	for _, statement := range s.Scope.Statements {
+		representation += "\t" + statement.String() + "\n"
+	}
+
+	return representation
 }
 
 
@@ -57,6 +62,6 @@ type ExitStatement struct {
 
 func (ExitStatement) IsStatement() {}
 
-func (ExitStatement) String() string {
-	return "ExitStatement"
+func (s *ExitStatement) String() string {
+	return "exit with error code equals to " + s.ExitCode.String()
 }

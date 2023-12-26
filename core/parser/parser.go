@@ -4,26 +4,21 @@ import (
 	"Nie-Mand/karui/core/common"
 	"Nie-Mand/karui/core/lexer"
 	"Nie-Mand/karui/core/lexer/tokens"
-)
-
-const (
-	DEFAULT_ALLOCATED_MEMORY = 1024 * 1024 * 4 // 4 mb
+	"fmt"
 )
 
 type Parser struct {
-	// allocator *arena.ArenaAllocator
-
 	iterator common.Iterator[tokens.Token]
 }
 
 func NewParser(_tokens []tokens.Token) *Parser {
 	return &Parser{
 		iterator: tokens.NewTokenIterator(_tokens),
-		// allocator: arena.NewArenaAllocator(DEFAULT_ALLOCATED_MEMORY),
 	}
 }
 
 func (p *Parser) ParseTerm() (TermType, error) {
+
 	if p._hasNextAs(tokens.IntLiteral) {
 		integerLiteral, _ := p.iterator.Next()
 		intLiteralTerm := &IntLiteralTerm{
@@ -67,9 +62,11 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		return nil, err
 	}
 
+	// fmt.Println("leftTerm", leftTerm)
 	for {
 		token, err := p.iterator.Peek()
 		precision := token.BinaryPrec()
+
 		if err == nil {
 			if precision < minimumPrecision {
 				break
@@ -77,13 +74,16 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		} else {
 			break
 		}
-		p.iterator.Next()
 
 		operation, err := p.iterator.Next()
+		fmt.Println("operation", operation)
 		if err != nil {
 			return nil, err
 		}
+
 		rightTerm, err := p.ParseExpression(precision + 1)
+		fmt.Println("rightTerm", rightTerm)
+
 		if err != nil {
 			return nil, err
 		}
@@ -232,11 +232,10 @@ func (p *Parser) _parseExitStatement() (*ExitStatement, error) {
 	}
 	p.iterator.Next()
 
-	if !p.iterator.HasNext() || !p._hasNextAs(tokens.IntLiteral) {
+	if !p.iterator.HasNext() || !(p._hasNextAs(tokens.IntLiteral) || p._hasNextAs(tokens.Identifier)) {
 		return nil, ErrMissingExitCode
 	}
 	expression, err := p.ParseExpression(0)
-
 	if err != nil {
 		return nil, err
 	}
@@ -244,6 +243,7 @@ func (p *Parser) _parseExitStatement() (*ExitStatement, error) {
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.CloseParenthesis) {
 		return nil, ErrMissingCloseParenthesis
 	}
+	p.iterator.Next()
 
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.Semicolon) {
 		return nil, ErrUnexpectedToken
@@ -269,7 +269,6 @@ func (p *Parser) _parseLetStatement() (*LetStatement, error) {
 	p.iterator.Next()
 
 	expression, err := p.ParseExpression(0)
-
 	if err != nil {
 		return nil, err
 	}
@@ -293,18 +292,18 @@ func (p *Parser) _parsePutsStatement() (*PutStatement, error) {
 	p.iterator.Next()
 
 	expression, err := p.ParseExpression(0)
-	
+
 	if err != nil {
 		return nil, err
 	}
-	
+
 	putsStatement.Expression = expression
-	
+
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.CloseParenthesis) {
 		return nil, ErrMissingCloseParenthesis
 	}
 	p.iterator.Next()
-	
+
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.Semicolon) {
 		return nil, ErrUnexpectedToken
 	}
@@ -334,6 +333,8 @@ func (p *Parser) _parseIfStatement() (*IfStatement, error) {
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.CloseParenthesis) {
 		return nil, ErrMissingCloseParenthesis
 	}
+
+	p.iterator.Next()
 
 	scope, err := p.ParseScope()
 

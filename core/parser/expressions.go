@@ -24,8 +24,8 @@ type AddExpression struct {
 }
 
 func (AddExpression) IsExpression() {}
-func (AddExpression) String() string {
-	return "AddExpression"
+func (x *AddExpression) String() string {
+	return x.Left.String() + " + " + x.Right.String()
 }
 
 
@@ -36,8 +36,8 @@ type SubtractExpression struct {
 }
 
 func (SubtractExpression) IsExpression() {}
-func (SubtractExpression) String() string {
-	return "SubtractExpression"
+func (s *SubtractExpression) String() string {
+	return s.Left.String() + " - " + s.Right.String()
 }
 
 
@@ -47,8 +47,8 @@ type MultiplyExpression struct {
 }
 
 func (MultiplyExpression) IsExpression() {}
-func (MultiplyExpression) String() string {
-	return "MultiplyExpression"
+func (s* MultiplyExpression) String() string {
+	return s.Left.String() + " * " + s.Right.String()
 }
 
 
@@ -58,8 +58,8 @@ type DivideExpression struct {
 }
 
 func (DivideExpression) IsExpression() {}
-func (DivideExpression) String() string {
-	return "DivideExpression"
+func (s *DivideExpression) String() string {
+	return s.Left.String() + " / " + s.Right.String()
 }
 
 
@@ -69,6 +69,6 @@ type ModuloExpression struct {
 }
 
 func (ModuloExpression) IsExpression() {}
-func (ModuloExpression) String() string {
-	return "ModuloExpression"
+func (s *ModuloExpression) String() string {
+	return s.Left.String() + " % " + s.Right.String()
 }
