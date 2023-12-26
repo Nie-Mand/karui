@@ -2,6 +2,7 @@ package main
 
 import (
 	"Nie-Mand/karui/core/lexer"
+	"Nie-Mand/karui/core/parser"
 	"fmt"
 )
 
@@ -10,8 +11,16 @@ func main() {
 	lexer  := lexer.NewLexer(source)
 	tokens, err := lexer.Lexerize()
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	} else {
 		fmt.Println(tokens)
+	}
+
+	parser := parser.NewParser(tokens)
+	program, err := parser.ParseProgram()
+	if err != nil {
+		panic(err)
+	} else {
+		fmt.Println(program)
 	}
 }

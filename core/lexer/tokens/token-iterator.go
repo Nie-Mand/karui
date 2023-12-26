@@ -1,6 +1,8 @@
 package tokens
 
-import "Nie-Mand/karui/core/common"
+import (
+	"Nie-Mand/karui/core/common"
+)
 
 type TokenIterator struct {
 	index  int
@@ -32,7 +34,7 @@ func (it *TokenIterator) Next() (Token, error) {
 }
 
 func (it *TokenIterator) HasNext() bool {
-	return it.HasRemaining(1)
+	return it.index < len(it.base)
 }
 
 func (it *TokenIterator) HasRemaining(offset int) bool {
