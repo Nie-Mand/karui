@@ -1,9 +1,10 @@
 let x = 0;
-let y = x + 1;
-let z = x - y;
+let y = x * 1;
+# let y = x + 4;
+let z = (y - 5) * (y + 45);
 
 if (y) {
     exit(y);
 }
 
-puts(y)
+puts(z)

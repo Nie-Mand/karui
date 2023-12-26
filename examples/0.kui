@@ -1,2 +1,5 @@
 let a = 1;
 let b = 2;
+puts(a)
+puts(b)
+puts(b + a)

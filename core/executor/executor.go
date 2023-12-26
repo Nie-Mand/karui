@@ -6,11 +6,13 @@ import (
 
 type Executor struct {
 	Program *parser.Program
+	Memory map[string]int
 }
 
 func NewExecutor(_program *parser.Program) *Executor {
 	return &Executor{
 		Program: _program,
+		Memory: make(map[string]int, 0),
 	}
 }
 
@@ -26,14 +28,5 @@ func (e *Executor) ExecuteProgram() error {
 }
 
 func (e *Executor) ExecuteStatement(statement parser.StatementType) error {
-	return statement.Execute()
-}
-
-func (e *Executor) ExecuteScope() {}
-func (e *Executor) ExecuteExpression() {}
-func (e *Executor) ExecuteBinaryExpression() {}
-
-
-func (e *Executor) ExecuteTerm(term parser.TermType) {
-
+	return statement.Execute(&e.Memory)
 }

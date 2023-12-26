@@ -1,8 +1,7 @@
 package parser
 
 type ExpressionType interface {
-	IsExpression()
-	// Evaluate() (int, error)
+	Evaluate(*map[string]int) (int, error)
 	String() string
 }
 
@@ -13,43 +12,81 @@ type BinaryExpression struct {
 	Right ExpressionType
 }
 
-func (BinaryExpression) IsExpression() {}
-func (b *BinaryExpression) String() string {
-	return b.Left.String() + " " + b.Right.String()
+func (BinaryExpression) Evaluate(_ *map[string]int) (int, error) {
+	return 0, nil
 }
 
+func (BinaryExpression) String() string {
+	return ""
+}
 
 // AddExpression
 type AddExpression struct {
 	BinaryExpression
 }
 
-func (AddExpression) IsExpression() {}
+func (x *AddExpression) Evaluate(memory *map[string]int) (int, error) {
+	left, err := x.Left.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	right, err := x.Right.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	return left + right, nil
+}
+
 func (x *AddExpression) String() string {
 	return x.Left.String() + " + " + x.Right.String()
 }
-
-
 
 // SubtractExpression
 type SubtractExpression struct {
 	BinaryExpression
 }
 
-func (SubtractExpression) IsExpression() {}
-func (s *SubtractExpression) String() string {
-	return s.Left.String() + " - " + s.Right.String()
+func (x *SubtractExpression) Evaluate(memory *map[string]int) (int, error) {
+	left, err := x.Left.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	right, err := x.Right.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	return left - right, nil
 }
 
+func (x *SubtractExpression) String() string {
+	return x.Left.String() + " - " + x.Right.String()
+}
 
 // MultiplyExpression
 type MultiplyExpression struct {
 	BinaryExpression
 }
 
-func (MultiplyExpression) IsExpression() {}
-func (s* MultiplyExpression) String() string {
-	return s.Left.String() + " * " + s.Right.String()
+func (x *MultiplyExpression) Evaluate(memory *map[string]int) (int, error) {
+	left, err := x.Left.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	right, err := x.Right.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	return left * right, nil
+}
+
+func (x *MultiplyExpression) String() string {
+	return x.Left.String() + " * " + x.Right.String()
 }
 
 
@@ -58,9 +95,22 @@ type DivideExpression struct {
 	BinaryExpression
 }
 
-func (DivideExpression) IsExpression() {}
-func (s *DivideExpression) String() string {
-	return s.Left.String() + " / " + s.Right.String()
+func (x *DivideExpression) Evaluate(memory *map[string]int) (int, error) {
+	left, err := x.Left.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	right, err := x.Right.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	return left / right, nil
+}
+
+func (x *DivideExpression) String() string {
+	return x.Left.String() + " / " + x.Right.String()
 }
 
 
@@ -69,7 +119,20 @@ type ModuloExpression struct {
 	BinaryExpression
 }
 
-func (ModuloExpression) IsExpression() {}
-func (s *ModuloExpression) String() string {
-	return s.Left.String() + " % " + s.Right.String()
+func (x* ModuloExpression) Evaluate(memory *map[string]int) (int, error) {
+	left, err := x.Left.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	right, err := x.Right.Evaluate(memory)
+	if err != nil {
+		return 0, err
+	}
+
+	return left % right, nil
+}
+
+func (x *ModuloExpression) String() string {
+	return x.Left.String() + " % " + x.Right.String()
 }

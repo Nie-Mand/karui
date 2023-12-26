@@ -7,7 +7,7 @@ import (
 
 
 type StatementType interface {
-	Execute() error
+	Execute(*map[string]int) error
 }
 
 // PutStatement
@@ -15,8 +15,13 @@ type PutStatement struct {
 	Expression ExpressionType
 }
 
-func (p *PutStatement) Execute() error {
-	fmt.Println(p.Expression.String())
+func (p *PutStatement) Execute(memory *map[string]int) error {
+	value, err := p.Expression.Evaluate(memory)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(value)
 	return nil
 }
 
@@ -26,8 +31,22 @@ type LetStatement struct {
 	Expression ExpressionType
 }
 
-func (LetStatement) Execute() error {
-	// TODO: Implement
+func (s *LetStatement) Execute(memory *map[string]int) error {
+	if memory == nil {
+		return ErrMemoryNotInitialized
+	}
+
+	if _, exists := (*memory)[s.Token.Value]; exists {
+		return ErrRedeclearationOfVariable
+	}
+
+	value, err := s.Expression.Evaluate(memory)
+	if err != nil {
+		return err
+	}
+
+	(*memory)[s.Token.Value] = value
+
 	return nil
 }
 
@@ -37,13 +56,19 @@ type IfStatement struct {
 	Scope Scope
 }
 
-func (s *IfStatement) Execute() error {
-	// evaluation, err := s.Condition.Evaluate()
-	// TODO: Implement
-	fmt.Println("Evaluating condition: " + s.Condition.String())
+func (s *IfStatement) Execute(memory *map[string]int) error {
+	condition, err := s.Condition.Evaluate(memory)
+
+	if err != nil {
+		return err
+	}
+
+	if condition == 0 {
+		return nil
+	} 
 
 	for _, statement := range s.Scope.Statements {
-		err := statement.Execute()
+		err := statement.Execute(memory)
 		if err != nil {
 			return err
 		}
@@ -58,6 +83,11 @@ type ExitStatement struct {
 	ExitCode ExpressionType
 }
 
-func (s *ExitStatement) Execute() error {
-	return ErrProgramExits(s.ExitCode.String())
+func (s *ExitStatement) Execute(memory *map[string]int) error {
+	exitCode, err := s.ExitCode.Evaluate(memory)
+	if err != nil {
+		return err
+	}
+
+	return ErrProgramExits(exitCode)
 }

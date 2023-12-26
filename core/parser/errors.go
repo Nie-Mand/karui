@@ -3,6 +3,7 @@ package parser
 import (
 	"Nie-Mand/karui/core/lexer"
 	"errors"
+	"fmt"
 )
 
 var (
@@ -19,7 +20,12 @@ var (
 
 	ErrMissingIdentifier = errors.New("expected identifier")
 
-	ErrProgramExits = func(exitCode string) error { 
-		return errors.New("program exits with exit code " + exitCode)
+	ErrProgramExits = func(exitCode int) error { 
+		return errors.New("program exits with exit code " + fmt.Sprintf("%d", exitCode))
 	 }
+
+
+	ErrMemoryNotInitialized = errors.New("memory not initialized")
+	ErrVariableNotInitialized = errors.New("variable not initialized")
+	ErrRedeclearationOfVariable = errors.New("redeclaration of variable")
 )

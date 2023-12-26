@@ -10,9 +10,9 @@ func NewScope() *Scope {
 	}
 }
 
-func (s *Scope) Execute() error {
+func (s *Scope) Execute(memory *map[string]int) error {
 	for _, statement := range s.Statements {
-		err := statement.Execute()
+		err := statement.Execute(memory)
 		if err != nil {
 			return err
 		}

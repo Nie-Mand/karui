@@ -1,11 +1,14 @@
 package parser
 
-import "Nie-Mand/karui/core/lexer/tokens"
+import (
+	"Nie-Mand/karui/core/lexer/tokens"
+	"fmt"
+)
 
 type TermType interface {
 	IsTerm()
-	IsExpression()
 	String() string
+	Evaluate(*map[string]int) (int, error)
 }
 
 // IdentifierTerm
@@ -14,11 +17,22 @@ type IdentifierTerm struct {
 }
 
 func (IdentifierTerm) IsTerm() {}
-func (IdentifierTerm) IsExpression() {}
-func (i *IdentifierTerm) String() string {
-	return i.Token.Value
+func (t *IdentifierTerm) Evaluate(memory *map[string]int) (int, error) {
+
+	if memory == nil {
+		return 0, ErrMemoryNotInitialized
+	}
+
+	if value, exists := (*memory)[t.Token.Value]; exists {
+		return value, nil
+	}
+	
+	return 0, ErrVariableNotInitialized
 }
 
+func (t *IdentifierTerm) String() string {
+	return t.Token.Value
+}
 
 // IntLiteralTerm
 type IntLiteralTerm struct {
@@ -26,11 +40,18 @@ type IntLiteralTerm struct {
 }
 
 func (IntLiteralTerm) IsTerm() {}
-func (IntLiteralTerm) IsExpression() {}
-func (i *IntLiteralTerm) String() string {
-	return i.Token.Value
+func (t *IntLiteralTerm) Evaluate(_ *map[string]int) (int, error) {
+	var value int
+	_, err := fmt.Sscanf(t.Token.Value, "%d", &value)
+	if err != nil {
+		return 0, err
+	}
+	return value, nil
 }
 
+func (t *IntLiteralTerm) String() string {
+	return t.Token.Value
+}
 
 // ParenthesizedTerm
 type ParenthesizedTerm struct {
@@ -38,7 +59,10 @@ type ParenthesizedTerm struct {
 }
 
 func (ParenthesizedTerm) IsTerm() {}
-func (ParenthesizedTerm) IsExpression() {}
-func (p *ParenthesizedTerm) String() string {
-	return "(" + p.Expression.String() + ")"
+func (t *ParenthesizedTerm) Evaluate(memory *map[string]int) (int, error) {
+	return t.Expression.Evaluate(memory)
+}
+
+func (t *ParenthesizedTerm) String() string {
+	return "(" + t.Expression.String() + ")"
 }
