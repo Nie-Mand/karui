@@ -4,7 +4,6 @@ import (
 	"Nie-Mand/karui/core/common"
 	"Nie-Mand/karui/core/lexer"
 	"Nie-Mand/karui/core/lexer/tokens"
-	"fmt"
 )
 
 type Parser struct {
@@ -76,13 +75,11 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		}
 
 		operation, err := p.iterator.Next()
-		fmt.Println("operation", operation)
 		if err != nil {
 			return nil, err
 		}
 
 		rightTerm, err := p.ParseExpression(precision + 1)
-		fmt.Println("rightTerm", rightTerm)
 
 		if err != nil {
 			return nil, err

@@ -2,6 +2,7 @@ package parser
 
 type ExpressionType interface {
 	IsExpression()
+	// Evaluate() (int, error)
 	String() string
 }
 

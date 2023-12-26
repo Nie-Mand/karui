@@ -19,6 +19,7 @@ var (
 
 	ErrMissingIdentifier = errors.New("expected identifier")
 
-
-
+	ErrProgramExits = func(exitCode string) error { 
+		return errors.New("program exits with exit code " + exitCode)
+	 }
 )

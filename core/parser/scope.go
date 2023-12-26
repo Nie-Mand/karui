@@ -1,7 +1,5 @@
 package parser
 
-import "fmt"
-
 type Scope struct {
 	Statements []StatementType
 }
@@ -12,13 +10,13 @@ func NewScope() *Scope {
 	}
 }
 
-func (Scope) IsStatement() {}
-
-func (s *Scope) String() string {
-	representation := "Scope: "
-	for idx, statement := range s.Statements {
-		representation += fmt.Sprintf("%d) %s", idx, statement.String())
+func (s *Scope) Execute() error {
+	for _, statement := range s.Statements {
+		err := statement.Execute()
+		if err != nil {
+			return err
+		}
 	}
-	
-	return representation
+
+	return nil
 }

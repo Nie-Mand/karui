@@ -2,12 +2,12 @@ package parser
 
 import (
 	"Nie-Mand/karui/core/lexer/tokens"
+	"fmt"
 )
 
 
 type StatementType interface {
-	IsStatement()
-	String() string
+	Execute() error
 }
 
 // PutStatement
@@ -15,13 +15,10 @@ type PutStatement struct {
 	Expression ExpressionType
 }
 
-func (PutStatement) IsStatement() {}
-
-func (p * PutStatement) String() string {
-	representation := "puts " + p.Expression.String()
-	return representation
+func (p *PutStatement) Execute() error {
+	fmt.Println(p.Expression.String())
+	return nil
 }
-
 
 // LetStatement
 type LetStatement struct {
@@ -29,13 +26,10 @@ type LetStatement struct {
 	Expression ExpressionType
 }
 
-func (LetStatement) IsStatement() {}
-
-func (l *LetStatement) String() string {
-	representation := l.Token.Value + " <- " + l.Expression.String()
-	return representation
+func (LetStatement) Execute() error {
+	// TODO: Implement
+	return nil
 }
-
 
 // IfStatement
 type IfStatement struct {
@@ -43,15 +37,19 @@ type IfStatement struct {
 	Scope Scope
 }
 
-func (IfStatement) IsStatement() {}
+func (s *IfStatement) Execute() error {
+	// evaluation, err := s.Condition.Evaluate()
+	// TODO: Implement
+	fmt.Println("Evaluating condition: " + s.Condition.String())
 
-func (s *IfStatement) String() string {
-	representation := "if: " + s.Condition.String() + " do: \n"
 	for _, statement := range s.Scope.Statements {
-		representation += "\t" + statement.String() + "\n"
+		err := statement.Execute()
+		if err != nil {
+			return err
+		}
 	}
 
-	return representation
+	return nil
 }
 
 
@@ -60,8 +58,6 @@ type ExitStatement struct {
 	ExitCode ExpressionType
 }
 
-func (ExitStatement) IsStatement() {}
-
-func (s *ExitStatement) String() string {
-	return "exit with error code equals to " + s.ExitCode.String()
+func (s *ExitStatement) Execute() error {
+	return ErrProgramExits(s.ExitCode.String())
 }
