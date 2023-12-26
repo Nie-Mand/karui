@@ -19,8 +19,11 @@ func NewLexer(source string) *Lexer {
 		if len(line) == 0 {
 			continue
 		}
-		
-		if line[len(line) - 1] != ';' {
+		if line[0] == COMMENT.String()[0] {
+			continue
+		}
+
+		if line[len(line) - 1] != ';' && line[len(line) - 1] != '{' && line[len(line) - 1] != '}' {
 			line += ";"
 		}
 

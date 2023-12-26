@@ -29,6 +29,7 @@ const (
 	Multiply
 	Divide
 	Modulo
+	Hashtag
 )
 
 func (t TokenType) String() string {
@@ -69,6 +70,8 @@ func (t TokenType) String() string {
 		return "}"
 	case Semicolon:
 		return ";"
+	case Hashtag:
+		return "#"
 		
 	default:
 		return "Unknown"
