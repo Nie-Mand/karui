@@ -42,7 +42,7 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 			case IF:
 				tokens = append(tokens, Token{ Type: If })
 			default:
-				tokens = append(tokens, Token{ Type: Ident, Value: buffer })
+				tokens = append(tokens, Token{ Type: Identifier, Value: buffer })
 			}
 
 			buffer = ""
@@ -56,7 +56,7 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 				}
 			}
 
-			tokens = append(tokens, Token{IntIdent, buffer})
+			tokens = append(tokens, Token{IntLiteral, buffer})
 			buffer = ""
 		} else {
 			switch p {

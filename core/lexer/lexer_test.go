@@ -16,16 +16,16 @@ func TestLexerize(t *testing.T) {
 	source := "a"
 	lexer  := NewLexer(source)
 	tokens, _ := lexer.Lexerize()
-	assert.Equal(t, []Token{{ Type: Ident, Value: "a" }}, tokens)
+	assert.Equal(t, []Token{{ Type: Identifier, Value: "a" }}, tokens)
 
 	source = "let a = 1;"
 	lexer  = NewLexer(source)
 	tokens, _ = lexer.Lexerize()
 	assert.Equal(t, []Token{
 		{ Type: Let },
-		{ Type: Ident, Value: "a" },
+		{ Type: Identifier, Value: "a" },
 		{ Type: Equal },
-		{ Type: IntIdent, Value: "1" },
+		{ Type: IntLiteral, Value: "1" },
 		{ Type: Semicolon },
 	}, tokens)
 }

@@ -10,8 +10,10 @@ const (
 	If
 
 	// Identifiers
-	Ident
-	IntIdent
+	Identifier
+
+	// Literals
+	IntLiteral
 	
 	// Symbols
 	OpenParenthesis
@@ -40,10 +42,10 @@ func (t TokenType) String() string {
 	case If:
 		return "If"
 
-	case Ident:
-		return "Ident"
-	case IntIdent:
-		return "IntIdent"
+	case Identifier:
+		return "Identifier"
+	case IntLiteral:
+		return "IntLiteral"
 
 	case Equal:
 		return "Equal"
@@ -67,6 +69,7 @@ func (t TokenType) String() string {
 		return "CloseCurly"
 	case Semicolon:
 		return "Semicolon"
+		
 	default:
 		return "Unknown"
 	}
