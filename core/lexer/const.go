@@ -1,7 +1,9 @@
 package lexer
 
+import "Nie-Mand/karui/core/lexer/tokens"
+
 var (
-	SEPERATOR = Semicolon
-	SCOPE_START = OpenCurly
-	SCOPE_END = CloseCurly
+	SEPERATOR = tokens.Semicolon
+	SCOPE_START = tokens.OpenCurly
+	SCOPE_END = tokens.CloseCurly
 )

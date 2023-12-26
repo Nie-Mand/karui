@@ -2,6 +2,7 @@ package lexer
 
 import (
 	"Nie-Mand/karui/core/common"
+	"Nie-Mand/karui/core/lexer/tokens"
 	"Nie-Mand/karui/core/utils"
 	"strings"
 )
@@ -17,8 +18,8 @@ func NewLexer(source string) *Lexer {
 	}
 }
 
-func (l *Lexer) Lexerize() ([]Token, error) {
-	tokens := []Token{}
+func (l *Lexer) Lexerize() ([]tokens.Token, error) {
+	_tokens := []tokens.Token{}
 	buffer := ""
 
 	for l.iterator.HasNext() {
@@ -34,15 +35,15 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 
 			switch buffer {
 			case EXIT:
-				tokens = append(tokens, Token{ Type: Exit })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Exit })
 			case LET:
-				tokens = append(tokens, Token{ Type: Let })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Let })
 			case PUTS:
-				tokens = append(tokens, Token{ Type: Puts })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Puts })
 			case IF:
-				tokens = append(tokens, Token{ Type: If })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.If })
 			default:
-				tokens = append(tokens, Token{ Type: Identifier, Value: buffer })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Identifier, Value: buffer })
 			}
 
 			buffer = ""
@@ -56,32 +57,35 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 				}
 			}
 
-			tokens = append(tokens, Token{IntLiteral, buffer})
+			_tokens = append(_tokens, tokens.Token{
+				Type: tokens.IntLiteral,
+				Value: buffer,
+			})
 			buffer = ""
 		} else {
 			switch p {
 			case SEMICOLON:
-				tokens = append(tokens, Token{ Type: Semicolon })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Semicolon })
 			case OPEN_PARENTHESIS:
-				tokens = append(tokens, Token{ Type: OpenParenthesis })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.OpenParenthesis })
 			case CLOSE_PARENTHESIS:
-				tokens = append(tokens, Token{ Type: CloseParenthesis })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.CloseParenthesis })
 			case OPEN_CURLY:
-				tokens = append(tokens, Token{ Type: OpenCurly })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.OpenCurly })
 			case CLOSE_CURLY:
-				tokens = append(tokens, Token{ Type: CloseCurly })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.CloseCurly })
 			case EQUAL:
-				tokens = append(tokens, Token{ Type: Equal })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Equal })
 			case PLUS:
-				tokens = append(tokens, Token{ Type: Plus })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Plus })
 			case MINUS:
-				tokens = append(tokens, Token{ Type: Minus })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Minus })
 			case MULTIPLY:
-				tokens = append(tokens, Token{ Type: Multiply })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Multiply })
 			case DIVIDE:
-				tokens = append(tokens, Token{ Type: Divide })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Divide })
 			case MODULO:
-				tokens = append(tokens, Token{ Type: Modulo })
+				_tokens = append(_tokens, tokens.Token{ Type: tokens.Modulo })
 			case " ":
 				// ignore
 			case "\t":
@@ -94,5 +98,5 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 	}
 	
 	l.iterator.Reset()
-	return tokens, nil
+	return _tokens, nil
 }

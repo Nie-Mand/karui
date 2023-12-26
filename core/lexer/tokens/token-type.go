@@ -1,4 +1,4 @@
-package lexer
+package tokens
 
 type TokenType int
 

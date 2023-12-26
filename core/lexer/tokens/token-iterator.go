@@ -1,4 +1,4 @@
-package lexer
+package tokens
 
 import "Nie-Mand/karui/core/common"
 

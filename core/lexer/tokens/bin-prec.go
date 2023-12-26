@@ -1,4 +1,4 @@
-package lexer
+package tokens
 
 func BinaryPrec(token Token) int {
 	// - binary precision: int
