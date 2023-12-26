@@ -26,7 +26,7 @@ func NewLexer(source string) *Lexer {
 
 		parsed = append(parsed, line)
 	}
-	
+
 	return &Lexer{
 		iterator: utils.NewStringIterator(strings.Join(parsed, "")),
 	}

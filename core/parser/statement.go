@@ -17,8 +17,9 @@ type PutStatement struct {
 
 func (PutStatement) IsStatement() {}
 
-func (PutStatement) String() string {
-	return "PutStatement"
+func (p * PutStatement) String() string {
+	representation := "print " + p.Expression.String()
+	return representation
 }
 
 

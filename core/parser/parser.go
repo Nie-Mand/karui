@@ -26,14 +26,14 @@ func NewParser(_tokens []tokens.Token) *Parser {
 func (p *Parser) ParseTerm() (TermType, error) {
 	if p._hasNextAs(tokens.IntLiteral) {
 		integerLiteral, _ := p.iterator.Next()
-		intLiteralTerm := &IntLiteralTerm {
+		intLiteralTerm := &IntLiteralTerm{
 			Token: integerLiteral,
 		}
 
 		return intLiteralTerm, nil
 	} else if p._hasNextAs(tokens.Identifier) {
 		identifier, _ := p.iterator.Next()
-		identifierTerm := &IdentifierTerm {
+		identifierTerm := &IdentifierTerm{
 			Token: identifier,
 		}
 
@@ -73,7 +73,7 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		if err == nil {
 			if precision < minimumPrecision {
 				break
-			} 
+			}
 		} else {
 			break
 		}
@@ -83,7 +83,6 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		if err != nil {
 			return nil, err
 		}
-
 		rightTerm, err := p.ParseExpression(precision + 1)
 		if err != nil {
 			return nil, err
@@ -93,7 +92,7 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		case tokens.Plus:
 			expresion := &AddExpression{
 				BinaryExpression: BinaryExpression{
-					Left: leftTerm,
+					Left:  leftTerm,
 					Right: rightTerm,
 				},
 			}
@@ -103,17 +102,17 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		case tokens.Minus:
 			expression := &SubtractExpression{
 				BinaryExpression: BinaryExpression{
-					Left: leftTerm,
+					Left:  leftTerm,
 					Right: rightTerm,
 				},
 			}
 
 			return expression, nil
-			
+
 		case tokens.Multiply:
 			expression := &MultiplyExpression{
 				BinaryExpression: BinaryExpression{
-					Left: leftTerm,
+					Left:  leftTerm,
 					Right: rightTerm,
 				},
 			}
@@ -122,13 +121,22 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 		case tokens.Divide:
 			expression := &DivideExpression{
 				BinaryExpression: BinaryExpression{
-					Left: leftTerm,
+					Left:  leftTerm,
 					Right: rightTerm,
 				},
 			}
 
 			return expression, nil
-		
+
+		case tokens.Modulo:
+			expression := &ModuloExpression{
+				BinaryExpression: BinaryExpression{
+					Left:  leftTerm,
+					Right: rightTerm,
+				},
+			}
+
+			return expression, nil
 		default:
 			return nil, ErrInvalidToken
 		}
@@ -285,17 +293,18 @@ func (p *Parser) _parsePutsStatement() (*PutStatement, error) {
 	p.iterator.Next()
 
 	expression, err := p.ParseExpression(0)
-
+	
 	if err != nil {
 		return nil, err
 	}
-
+	
 	putsStatement.Expression = expression
-
+	
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.CloseParenthesis) {
 		return nil, ErrMissingCloseParenthesis
 	}
-
+	p.iterator.Next()
+	
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.Semicolon) {
 		return nil, ErrUnexpectedToken
 	}
@@ -306,7 +315,7 @@ func (p *Parser) _parsePutsStatement() (*PutStatement, error) {
 
 func (p *Parser) _parseIfStatement() (*IfStatement, error) {
 	p.iterator.Next()
-	
+
 	ifStatement := &IfStatement{}
 
 	if !p.iterator.HasNext() || !p._hasNextAs(tokens.OpenParenthesis) {
