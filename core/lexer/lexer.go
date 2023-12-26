@@ -11,7 +11,7 @@ type Lexer struct {
 }
 
 func NewLexer(source string) *Lexer {
-	parsed := strings.Join(strings.Split(source, "\n"), SEPERATOR)
+	parsed := strings.Join(strings.Split(source, "\n"), SEPERATOR.String())
 	return &Lexer{
 		iterator: utils.NewStringIterator(parsed),
 	}
