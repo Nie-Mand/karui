@@ -1,19 +1,19 @@
 package lexer
 
 import (
-	"Nie-Mand/karui/pkg/common"
+	"Nie-Mand/karui/core/common"
+	"Nie-Mand/karui/core/utils"
 	"strings"
 )
 
 type Lexer struct {
-	index  int
-	source string
+	iterator common.Iterator[string]
 }
 
 func NewLexer(source string) *Lexer {
+	parsed := strings.Join(strings.Split(source, "\n"), SEPERATOR)
 	return &Lexer{
-		index: 0, 
-		source: strings.Join(strings.Split(source, "\n"), SEPERATOR),
+		iterator: utils.NewStringIterator(parsed),
 	}
 }
 
@@ -21,18 +21,15 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 	tokens := []Token{}
 	buffer := ""
 
-	for l.Peek() != "" {
-		character := l.Peek()
-
-		if common.IsAlpha(character) {
-			c, _ := l.Consume()
-			buffer += c
-			for common.IsAlphanumeric(l.Peek()) {
-				c, more := l.Consume()
-				buffer += c
-				if !more {
+	for l.iterator.HasNext() {
+		if p, err := l.iterator.Peek(); err == nil && utils.IsAlpha(p) {
+			for {
+				if p, err := l.iterator.Peek(); err == nil && utils.IsAlphanumeric(p) {
+					c, _ := l.iterator.Next()
+					buffer += c
+				} else {
 					break
-				} 
+				}
 			}
 
 			switch buffer {
@@ -49,21 +46,20 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 			}
 
 			buffer = ""
-		} else if common.IsNumeric(character) {
-			c, _ := l.Consume()
-			buffer += c
-			for common.IsNumeric(l.Peek()) {
-				c, more := l.Consume()
-				buffer += c
-
-				if !more {
+		} else if err == nil && utils.IsNumeric(p) {
+			for {
+				if p, err := l.iterator.Peek(); err == nil && utils.IsNumeric(p) {
+					c, _ := l.iterator.Next()
+					buffer += c
+				} else {
 					break
-				} 
+				}
 			}
+
 			tokens = append(tokens, Token{IntIdent, buffer})
 			buffer = ""
 		} else {
-			switch character {
+			switch p {
 			case SEMICOLON:
 				tokens = append(tokens, Token{ Type: Semicolon })
 			case OPEN_PARENTHESIS:
@@ -93,31 +89,10 @@ func (l *Lexer) Lexerize() ([]Token, error) {
 			default:
 				return nil, ErrInvalidCharacter
 			}
-			l.Consume()
+			l.iterator.Next()
 		}
 	}
 	
-	l.index = 0
+	l.iterator.Reset()
 	return tokens, nil
-}
-
-func (l *Lexer) Peek() string {
-	return l.PeekOffset(0)
-}
-
-func (l *Lexer) PeekOffset(offset int) string {
-	if l.index + offset < len(l.source) {
-		return string(l.source[l.index + offset])
-	}
-	return ""
-}
-
-func (l *Lexer) Consume() (string, bool) {
-	if l.index < len(l.source) {
-		char := string(l.source[l.index])
-		l.index++
-		return char, true
-	}
-
-	return "", false
 }

@@ -1,4 +1,4 @@
-package common
+package utils
 
 func IsAlpha(word string) bool {
 	if word == "" {

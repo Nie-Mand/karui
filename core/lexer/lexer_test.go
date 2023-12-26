@@ -12,26 +12,6 @@ func TestNew(t *testing.T) {
 	assert.NotNil(t, lexer)
 }
 
-func TestPeek(t *testing.T) {
-	source := "a"
-	lexer  := NewLexer(source)
-	assert.Equal(t, "a", lexer.Peek())
-}
-
-func TestPeekOffset(t *testing.T) {
-	source := "abc"
-	lexer  := NewLexer(source)
-	assert.Equal(t, "c", lexer.PeekOffset(2))
-}
-
-func TestConsume(t *testing.T) {
-	source := "ab"
-	lexer  := NewLexer(source)
-	c, _ := lexer.Consume()
-	assert.Equal(t, "a", c)
-	assert.Equal(t, "b", lexer.Peek())
-}
-
 func TestLexerize(t *testing.T) {
 	source := "a"
 	lexer  := NewLexer(source)
