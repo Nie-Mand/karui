@@ -12,9 +12,23 @@ type Lexer struct {
 }
 
 func NewLexer(source string) *Lexer {
-	parsed := strings.Join(strings.Split(source, "\n"), SEPERATOR.String())
+	lines := strings.Split(source, "\n")
+	parsed := []string{}
+
+	for _, line := range lines {
+		if len(line) == 0 {
+			continue
+		}
+		
+		if line[len(line) - 1] != ';' {
+			line += ";"
+		}
+
+		parsed = append(parsed, line)
+	}
+	
 	return &Lexer{
-		iterator: utils.NewStringIterator(parsed),
+		iterator: utils.NewStringIterator(strings.Join(parsed, "")),
 	}
 }
 
@@ -34,13 +48,13 @@ func (l *Lexer) Lexerize() ([]tokens.Token, error) {
 			}
 
 			switch buffer {
-			case EXIT:
+			case tokens.Exit.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Exit })
-			case LET:
+			case tokens.Let.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Let })
-			case PUTS:
+			case tokens.Puts.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Puts })
-			case IF:
+			case tokens.If.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.If })
 			default:
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Identifier, Value: buffer })
@@ -64,27 +78,27 @@ func (l *Lexer) Lexerize() ([]tokens.Token, error) {
 			buffer = ""
 		} else {
 			switch p {
-			case SEMICOLON:
+			case tokens.Semicolon.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Semicolon })
-			case OPEN_PARENTHESIS:
+			case tokens.OpenParenthesis.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.OpenParenthesis })
-			case CLOSE_PARENTHESIS:
+			case tokens.CloseParenthesis.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.CloseParenthesis })
-			case OPEN_CURLY:
+			case tokens.OpenCurly.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.OpenCurly })
-			case CLOSE_CURLY:
+			case tokens.CloseCurly.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.CloseCurly })
-			case EQUAL:
+			case tokens.Equal.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Equal })
-			case PLUS:
+			case tokens.Plus.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Plus })
-			case MINUS:
+			case tokens.Minus.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Minus })
-			case MULTIPLY:
+			case tokens.Multiply.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Multiply })
-			case DIVIDE:
+			case tokens.Divide.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Divide })
-			case MODULO:
+			case tokens.Modulo.String():
 				_tokens = append(_tokens, tokens.Token{ Type: tokens.Modulo })
 			case " ":
 				// ignore

@@ -1,0 +1,8 @@
+let x = 0;
+let y = x + 1;
+
+if (y) {
+    exit(y);
+}
+
+puts(y)

@@ -34,41 +34,41 @@ const (
 func (t TokenType) String() string {
 	switch t {
 	case Exit:
-		return "Exit"
+		return "exit"
 	case Let:
-		return "Let"
+		return "let"
 	case Puts:
-		return "Puts"
+		return "puts"
 	case If:
-		return "If"
+		return "if"
 
 	case Identifier:
-		return "Identifier"
+		return "identifier"
 	case IntLiteral:
-		return "IntLiteral"
+		return "int-literal"
 
 	case Equal:
-		return "Equal"
+		return "="
 	case Plus:
-		return "Plus"
+		return "+"
 	case Minus:
-		return "Minus"
+		return "-"
 	case Multiply:
-		return "Multiply"
+		return "*"
 	case Divide:
-		return "Divide"
+		return "/"
 	case Modulo:
-		return "Modulo"
+		return "%"
 	case OpenParenthesis:
-		return "OpenParenthesis"
+		return "("
 	case CloseParenthesis:
-		return "CloseParenthesis"
+		return ")"
 	case OpenCurly:
-		return "OpenCurly"
+		return "{"
 	case CloseCurly:
-		return "CloseCurly"
+		return "}"
 	case Semicolon:
-		return "Semicolon"
+		return ";"
 		
 	default:
 		return "Unknown"

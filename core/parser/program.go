@@ -15,7 +15,7 @@ func NewProgram() *Program {
 func (p *Program) String() string {
 	representation := "Program: \n"
 	for idx, statement := range p.Statements {
-		representation += fmt.Sprintf("%d) %s", idx, statement.String())
+		representation += fmt.Sprintf("%d) %s\n", idx, statement.String())
 	}
 	
 	return representation
