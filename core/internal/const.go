@@ -1,4 +1,4 @@
-package lexer
+package internal
 
 import "Nie-Mand/karui/core/internal/tokens"
 

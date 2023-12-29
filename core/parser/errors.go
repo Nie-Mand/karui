@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"Nie-Mand/karui/core/lexer"
 	"errors"
 	"fmt"
 )
@@ -10,8 +9,8 @@ var (
 	ErrInvalidToken = errors.New("invalid token")
 	ErrInvalidStatement = errors.New("invalid statement")
 
-	ErrInvalidScopeStart = errors.New("expected " + lexer.SCOPE_START.String())
-	ErrInvalidScopeEnd = errors.New("expected " + lexer.SCOPE_END.String())
+	ErrInvalidScopeStart = errors.New("expected {")
+	ErrInvalidScopeEnd = errors.New("expected }")
 
 	ErrMissingOpenParenthesis = errors.New("expected (")
 	ErrMissingCloseParenthesis = errors.New("expected )")

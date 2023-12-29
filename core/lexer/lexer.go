@@ -2,7 +2,7 @@ package lexer
 
 import (
 	"Nie-Mand/karui/core/common"
-	"Nie-Mand/karui/core/lexer/tokens"
+	"Nie-Mand/karui/core/internal/tokens"
 	"Nie-Mand/karui/core/utils"
 	"strings"
 )

@@ -37,10 +37,6 @@ func (it *TokenIterator) HasNext() bool {
 	return it.index < len(it.base)
 }
 
-func (it *TokenIterator) HasRemaining(offset int) bool {
-	return it.index + offset <= len(it.base)
-}
-
 func (it *TokenIterator) Reset() {
 	it.index = 0
 }

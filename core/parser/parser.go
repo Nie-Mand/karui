@@ -2,8 +2,8 @@ package parser
 
 import (
 	"Nie-Mand/karui/core/common"
+	"Nie-Mand/karui/core/internal/tokens"
 	"Nie-Mand/karui/core/lexer"
-	"Nie-Mand/karui/core/lexer/tokens"
 )
 
 type Parser struct {

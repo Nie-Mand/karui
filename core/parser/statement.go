@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"Nie-Mand/karui/core/lexer/tokens"
+	"Nie-Mand/karui/core/internal/tokens"
 	"fmt"
 )
 

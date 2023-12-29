@@ -41,15 +41,6 @@ func TestHasNext(t *testing.T) {
 	assert.True(t, it.HasNext())
 }
 
-func TestHasRemaining(t *testing.T) {
-	tokens := []Token{
-		{ Type: Identifier, Value: "a" },
-	}
-	it := NewTokenIterator(tokens)
-	assert.True(t, it.HasRemaining(1))
-	assert.False(t, it.HasRemaining(2))
-}
-
 func TestReset(t *testing.T) {
 	tokens := []Token{
 		{ Type: Identifier, Value: "a" },
