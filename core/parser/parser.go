@@ -2,8 +2,8 @@ package parser
 
 import (
 	"Nie-Mand/karui/core/common"
+	"Nie-Mand/karui/core/internal"
 	"Nie-Mand/karui/core/internal/tokens"
-	"Nie-Mand/karui/core/lexer"
 )
 
 type Parser struct {
@@ -144,7 +144,7 @@ func (p *Parser) ParseExpression(minimumPrecision int) (ExpressionType, error) {
 }
 
 func (p *Parser) ParseScope() (*Scope, error) {
-	if !p._hasNextAs(lexer.SCOPE_START) {
+	if !p._hasNextAs(internal.SCOPE_START) {
 		return nil, ErrInvalidScopeStart
 	}
 
@@ -159,7 +159,7 @@ func (p *Parser) ParseScope() (*Scope, error) {
 
 		scope.Statements = append(scope.Statements, statement)
 	}
-	if !p._hasNextAs(lexer.SCOPE_END) {
+	if !p._hasNextAs(internal.SCOPE_END) {
 		return nil, ErrInvalidScopeEnd
 	}
 
@@ -190,7 +190,7 @@ func (p *Parser) ParseStatement() (StatementType, error) {
 	}
 
 	// Handle Scope
-	if p._hasNextAs(lexer.SCOPE_START) {
+	if p._hasNextAs(internal.SCOPE_START) {
 		return p.ParseScope()
 	}
 

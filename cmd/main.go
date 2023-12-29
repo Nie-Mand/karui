@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	source, err := os.ReadFile("examples/0.kui")
+	source, err := os.ReadFile("examples/2.kui")
 	if err != nil {
 		panic(err)
 	}

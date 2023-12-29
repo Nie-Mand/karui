@@ -1,21 +1,17 @@
 package execute
 
 import (
-	// "Nie-Mand/karui/core/lexer"
-	// "Nie-Mand/karui/core/internal/lexer"
-
 	"Nie-Mand/karui/core/internal/lexer"
+
 	"fmt"
 )
 
-
 func Execute(source string) {
-	// lexer := lexer.NewLexer(string(source))
-	lexer := lexer.NewKaruiLexer(string(source))
-	tokens, err := lexer.Lexerize()
+	karuiLexer := lexer.NewKaruiLexer(string(source))
+	tokens, err := karuiLexer.Lexerize()
 	if err != nil {
 		panic(err)
-	} 
+	}
 
-	fmt.Println(tokens)	
+	fmt.Println(tokens)
 }
