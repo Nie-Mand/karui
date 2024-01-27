@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"Nie-Mand/karui/core/common"
-	"Nie-Mand/karui/core/internal"
-	"Nie-Mand/karui/core/internal/tokens"
+	"github.com/Nie-Mand/karui/core/common"
+	"github.com/Nie-Mand/karui/core/internal"
+	"github.com/Nie-Mand/karui/core/internal/tokens"
 )
 
 type Parser struct {

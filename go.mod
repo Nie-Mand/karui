@@ -1,4 +1,4 @@
-module Nie-Mand/karui
+module github.com/Nie-Mand/karui
 
 go 1.21.1
 

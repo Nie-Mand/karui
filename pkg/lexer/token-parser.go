@@ -1,6 +1,6 @@
 package lexer
 
-import "Nie-Mand/karui/pkg/utils"
+import "github.com/Nie-Mand/karui/pkg/utils"
 
 type TokenParser[Token any] interface {
 

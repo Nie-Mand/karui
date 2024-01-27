@@ -1,9 +1,10 @@
 package lexer
 
 import (
-	"Nie-Mand/karui/core/internal/tokens"
 	"fmt"
 	"testing"
+
+	"github.com/Nie-Mand/karui/core/internal/tokens"
 
 	"github.com/stretchr/testify/assert"
 )

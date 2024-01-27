@@ -1,6 +1,6 @@
 package utils
 
-import "Nie-Mand/karui/core/common"
+import "github.com/Nie-Mand/karui/core/common"
 
 type StringIterator struct {
 	index  int

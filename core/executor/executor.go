@@ -1,7 +1,7 @@
 package executor
 
 import (
-	"Nie-Mand/karui/core/parser"
+	"github.com/Nie-Mand/karui/core/parser"
 )
 
 type Executor struct {

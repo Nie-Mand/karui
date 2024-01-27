@@ -1,9 +1,10 @@
 package main
 
 import (
-	// "Nie-Mand/karui/core/internal/lexer"
-	"Nie-Mand/karui/core/execute"
+	// "github.com/Nie-Mand/karui/core/internal/lexer"
 	"os"
+
+	"github.com/Nie-Mand/karui/core/execute"
 )
 
 func main() {

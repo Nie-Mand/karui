@@ -1,6 +1,6 @@
 package internal
 
-import "Nie-Mand/karui/core/internal/tokens"
+import "github.com/Nie-Mand/karui/core/internal/tokens"
 
 
 var (

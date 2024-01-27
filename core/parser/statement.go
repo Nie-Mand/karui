@@ -1,8 +1,9 @@
 package parser
 
 import (
-	"Nie-Mand/karui/core/internal/tokens"
 	"fmt"
+
+	"github.com/Nie-Mand/karui/core/internal/tokens"
 )
 
 

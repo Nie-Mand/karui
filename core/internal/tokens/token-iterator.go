@@ -1,7 +1,7 @@
 package tokens
 
 import (
-	"Nie-Mand/karui/core/common"
+	"github.com/Nie-Mand/karui/core/common"
 )
 
 type TokenIterator struct {

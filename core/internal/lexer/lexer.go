@@ -1,10 +1,10 @@
 package lexer
 
 import (
-	"Nie-Mand/karui/core/internal/lexer/tokenizers"
-	"Nie-Mand/karui/core/internal/tokens"
-	"Nie-Mand/karui/core/internal/utils"
-	"Nie-Mand/karui/pkg/lexer"
+	"github.com/Nie-Mand/karui/core/internal/lexer/tokenizers"
+	"github.com/Nie-Mand/karui/core/internal/tokens"
+	"github.com/Nie-Mand/karui/core/internal/utils"
+	"github.com/Nie-Mand/karui/pkg/lexer"
 )
 
 type KaruiLexer struct {

@@ -1,7 +1,7 @@
 package execute
 
 import (
-	"Nie-Mand/karui/core/internal/lexer"
+	"github.com/Nie-Mand/karui/core/internal/lexer"
 
 	"fmt"
 )

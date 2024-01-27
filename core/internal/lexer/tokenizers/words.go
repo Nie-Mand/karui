@@ -1,8 +1,8 @@
 package tokenizers
 
 import (
-	"Nie-Mand/karui/core/internal/tokens"
-	"Nie-Mand/karui/pkg/utils"
+	"github.com/Nie-Mand/karui/core/internal/tokens"
+	"github.com/Nie-Mand/karui/pkg/utils"
 )
 
 type WordsTokenizer struct {}

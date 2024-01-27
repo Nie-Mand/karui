@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"Nie-Mand/karui/pkg/utils"
+	"github.com/Nie-Mand/karui/pkg/utils"
 )
 
 

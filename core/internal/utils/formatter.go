@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"Nie-Mand/karui/core/internal"
 	"strings"
+
+	"github.com/Nie-Mand/karui/core/internal"
 )
 
 type BasicFormatter struct {}
